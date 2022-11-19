@@ -1,3 +1,46 @@
+// Global vairables
+const currentDay = $('#currentDay');
+
+
+const hourlySchedule = [
+  {
+    time: '09',
+    task: ''
+  },
+  {
+    time: '10',
+    task: ''
+  },
+  {
+    time: '11',
+    task: ''
+  },
+  {
+    time: '12',
+    task: ''
+  },
+  {
+    time: '13',
+    task: ''
+  },
+  {
+    time: '14',
+    task: ''
+  },
+  {
+    time: '15',
+    task: ''
+  },
+  {
+    time: '16',
+    task: ''
+  },
+  {
+    time: '17',
+    task: ''
+  },
+
+]
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -21,3 +64,47 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+
+
+// Displays day/time
+function displayTime() {
+  const rightNow = dayjs().format('dddd, MMMM DD, YYYY [at] h:mm:ss A');
+  currentDay.text(rightNow);
+}
+
+// checks the status of each time block and changes it accordingly
+// UNDER CONSTRUCTION function identifies the correct tense of tasks,
+// but does not add class modififcaitons to change color
+function statusCheck() {
+  for (let i = 0; i < hourlySchedule.length; i++) {
+    const currentTime = dayjs().format('HH');
+    const timeBlock = hourlySchedule[i].time
+    const classTag = $('#task-'+i);
+
+    if (timeBlock < currentTime) {
+      classTag.addClass('past');
+      classTag.removeClass('present');
+      classTag.removeClass('future');
+      console.log('past')
+    } else if (timeBlock > currentTime) {
+      classTag.removeClass('past');
+      classTag.removeClass('present');
+      classTag.addClass('future');
+      console.log('future')
+    } else {
+      classTag.removeClass('past');
+      classTag.addClass('present');
+      classTag.removeClass('future');
+      console.log('present')
+    }
+
+  }
+}
+
+
+// Updates the day/time every second
+displayTime();
+setInterval(displayTime, 1000);
+
+statusCheck();
