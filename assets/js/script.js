@@ -1,5 +1,8 @@
-// Global vairables
+$(document).ready(function() {
+
+// Global variables
 const currentDay = $('#currentDay');
+const saveBtn = $('.saveBtn')
 
 
 const hourlySchedule = [
@@ -39,12 +42,9 @@ const hourlySchedule = [
     time: '17',
     task: ''
   },
-
 ]
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(function () {
+
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -52,18 +52,15 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
+
+
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-  // TODO: Add code to display the current date in the header of the page.
-});
+
+
 
 
 
@@ -73,14 +70,12 @@ function displayTime() {
   currentDay.text(rightNow);
 }
 
-// checks the status of each time block and changes it accordingly
-// UNDER CONSTRUCTION function identifies the correct tense of tasks,
-// but does not add class modififcaitons to change color
+// checks the status of each time block and changes its color accordingly
 function statusCheck() {
   for (let i = 0; i < hourlySchedule.length; i++) {
     const currentTime = dayjs().format('HH');
     const timeBlock = hourlySchedule[i].time
-    const classTag = $('#task-'+i);
+    const classTag = $('.task-'+i);
 
     if (timeBlock < currentTime) {
       classTag.addClass('past');
@@ -101,10 +96,29 @@ function statusCheck() {
 
   }
 }
+// Saves the tasks to local storage
+saveBtn.on('click', function (event){
+  event.preventDefault();
 
+  const taskHour = $(this).data("time");
+  const taskText = $("#" + taskHour).val();
+
+  localStorage.setItem(taskHour, taskText);
+
+});
+
+//Renders any saved tasks to page on load/refresh
+// UNDER CONSTRUCTION
+// function renderSavedTasks() {
+//   for (let i = 0; i < array.length; i++) {
+//     const element = array[i];
+    
+//   }
+// }
 
 // Updates the day/time every second
 displayTime();
 setInterval(displayTime, 1000);
 
 statusCheck();
+});
