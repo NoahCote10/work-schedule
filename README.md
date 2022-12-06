@@ -5,7 +5,8 @@ This project was to create a daily workday planner to record simple tasks that c
 
 ## Page Preview
 Below is what the page should look like:
-![workday-scheduler]()
+![workday-scheduler](./assets/images/workday-scheduler-demo.jpg)
+Note: live page may have different colors depending on the time viewed.
 
 ## Access
-This site can be found [here]().
+This site can be found [here](https://noahcote10.github.io/work-schedule/).
